@@ -1,0 +1,44 @@
+{% extends 'corona.html' %}
+{% block content %}
+
+<h2>Statistics in {{ country }}</h2>
+<table style="background: white" class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Confirmed Cases</th>
+      <th scope="col">Death(s)</th>
+      <th scope="col">Recovered</th>
+      <th scope="col">Last Update</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">{{ confirmed_value }}</th>
+      <td>{{ death_value }}</td>
+      <td>{{ recovered_value }}</td>
+      <td>{{ last_update }}</td>
+    </tr>
+
+  </tbody>
+</table>
+<h2>Statistics WorldWide</h2>
+<table style="background: white" class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Confirmed Cases</th>
+      <th scope="col">Death(s)</th>
+      <th scope="col">Recovered</th>
+      <th scope="col">Last Update</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">{{ confirmed_value_worldwide }}</th>
+      <td>{{ death_value_worldwide }}</td>
+      <td>{{ recovered_value_worldwide }}</td>
+      <td>{{ last_update_worldwide }}</td>
+    </tr>
+
+  </tbody>
+</table>
+{% endblock %}
