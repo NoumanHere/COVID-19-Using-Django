@@ -1,1 +1,1 @@
-web: gunicorn Boards.wsgi --log-file -
+web: gunicorn corona.wsgi --log-file -
