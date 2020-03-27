@@ -18,31 +18,8 @@ def countries(request):
         data1 = response1.json()
         countries_name = data1['countries']
         for i in countries_name:
-            if country_name == i['name']:
-                country_name.title()
-                url2 = 'https://covid19.mathdro.id/api/countries/%s' % country_name
-                response2 = requests.get(url2)
-                data2 = response2.json()
-                confirmed = data2['confirmed']
-                recovered = data2['recovered']
-                deaths = data2['deaths']
-
-                return render(request,'Results.html',
-                {
-                'country':country_name,
-                'data':data2,
-                'confirmed_value':confirmed['value'],
-                'recovered_value':recovered['value'],
-                'last_update':data2['lastUpdate'],
-                'death_value':deaths['value'],
-                'confirmed_value_worldwide':confirmed_worldwide['value'],
-                'recovered_value_worldwide':recovered_worldwide['value'],
-                'last_update_worldwide':data_worldwide['lastUpdate'],
-                'death_value_worldwide':deaths_worldwide['value']
-                    }
-                    )
-                if country_name == i['name']:
-                    country_name.title()
+            try:
+                if (country_name.title() == i['name']) or (country_name.upper() != i['iso2']) or (country_name.upper() != i['iso3']):
                     url2 = 'https://covid19.mathdro.id/api/countries/%s' % country_name
                     response2 = requests.get(url2)
                     data2 = response2.json()
@@ -64,50 +41,27 @@ def countries(request):
                     'death_value_worldwide':deaths_worldwide['value']
                         }
                         )
-        else:
-            return render(request,'Results.html',{
-                    'country':country_name,
+                
+                else:
+                    country_name.title()
+                    return render(request,'Results.html',
+                    {
                     'confirmed_value_worldwide':confirmed_worldwide['value'],
                     'recovered_value_worldwide':recovered_worldwide['value'],
                     'last_update_worldwide':data_worldwide['lastUpdate'],
                     'death_value_worldwide':deaths_worldwide['value']
-                   })
+                        }
+                        )
+            except:
+                return render(request,'Results.html',
+                    {
+                    
+                    'confirmed_value_worldwide':confirmed_worldwide['value'],
+                    'recovered_value_worldwide':recovered_worldwide['value'],
+                    'last_update_worldwide':data_worldwide['lastUpdate'],
+                    'death_value_worldwide':deaths_worldwide['value']
+                        }
+                        )
+        
     return render(request,'corona.html',{
             })
-
-    #     print(countries_name[0])
-    #     if country_name not in countries_name:
-    #         return render(request,'corona.html')
-    #     else:
-    #         country_name.title()
-    #         url2 = 'https://covid19.mathdro.id/api/countries/%s' % country_name
-    #         response2 = requests.get(url2)
-    #         data2 = response2.json()
-    #         confirmed = data2['confirmed']
-    #         recovered = data2['recovered']
-    #         deaths = data2['deaths']
-    #
-    #         return render(request,'Results.html',
-    #         {
-    #         'country':country_name,
-    #         'data':data2,
-    #         'confirmed_value':confirmed['value'],
-    #         'recovered_value':recovered['value'],
-    #         'last_update':data2['lastUpdate'],
-    #         'death_value':deaths['value'],
-    #         'confirmed_value_worldwide':confirmed_worldwide['value'],
-    #         'recovered_value_worldwide':recovered_worldwide['value'],
-    #         'last_update_worldwide':data_worldwide['lastUpdate'],
-    #         'death_value_worldwide':deaths_worldwide['value']
-    #             }
-    #             )
-    # else:
-    #     return render(request,'corona.html',{
-    #     'country' : country_name,
-    #     })
-
-
-
-    # res = next((item for item in countries if item["name"]==search),None)
-    # print(res)
-    # if res == None:
